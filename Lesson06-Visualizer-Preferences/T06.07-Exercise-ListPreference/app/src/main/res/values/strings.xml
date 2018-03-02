@@ -25,9 +25,12 @@
     <string name="pref_show_true">Shown</string>
     <string name="pref_show_false">Hidden</string>
 
-    <!-- TODO (2) Add string values for the list preference -->
-    <!-- TODO (3) Add a res->values->arrays.xml file which contains two arrays, one for
-        labels and one for values. The arrays should contain strings found in this file-->
+    <string name="pref_set_color_label">Set Color</string>
+    <string name="pref_set_color_key" translatable="false">color</string>
+
+    <string name="pref_color_label_red">red</string>
+    <string name="pref_color_label_blue">blue</string>
+    <string name="pref_color_label_green">green</string>
 
     <!-- Value in SharedPreferences for red color option -->
     <string name="pref_color_red_value" translatable="false">red</string>

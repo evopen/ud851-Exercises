@@ -44,9 +44,9 @@ public class VisualizerView extends View {
     private static final float MIN_SIZE_DEFAULT = 50;
 
     // This multiplier is used to make the frequency jumps a little more visually pronounced
-    private static final float BASS_MULTIPLIER = 1.5f;
-    private static final float MID_MULTIPLIER = 3;
-    private static final float TREBLE_MULTIPLIER = 5;
+    private static final float BASS_MULTIPLIER = 3f;
+    private static final float MID_MULTIPLIER = 6;
+    private static final float TREBLE_MULTIPLIER = 15;
 
     private static final float REVOLUTIONS_PER_SECOND = .3f;
 
