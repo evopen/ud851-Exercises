@@ -41,9 +41,10 @@ public class TaskContentProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     // Define a static buildUriMatcher method that associates URI's with their int match
+
     /**
-     Initialize a new matcher object without any matches,
-     then use .addURI(String authority, String path, int match) to add matches
+     * Initialize a new matcher object without any matches,
+     * then use .addURI(String authority, String path, int match) to add matches
      */
     public static UriMatcher buildUriMatcher() {
 
@@ -95,7 +96,7 @@ public class TaskContentProvider extends ContentProvider {
                 // Insert new values into the database
                 // Inserting values into tasks table
                 long id = db.insert(TABLE_NAME, null, values);
-                if ( id > 0 ) {
+                if (id > 0) {
                     returnUri = ContentUris.withAppendedId(TaskContract.TaskEntry.CONTENT_URI, id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
@@ -131,7 +132,7 @@ public class TaskContentProvider extends ContentProvider {
         switch (match) {
             // Query for the tasks directory
             case TASKS:
-                retCursor =  db.query(TABLE_NAME,
+                retCursor = db.query(TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -191,15 +192,34 @@ public class TaskContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
+        SQLiteDatabase db = new TaskDbHelper(getContext()).getWritableDatabase();
 
-        throw new UnsupportedOperationException("Not yet implemented");
+        int match = buildUriMatcher().match(uri);
+        int count;
+        switch (match) {
+            case TASK_WITH_ID:
+                count = db.update(TABLE_NAME, values, null, null);
+                break;
+            default:
+                throw new UnsupportedOperationException();
+
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
 
     @Override
     public String getType(@NonNull Uri uri) {
-
-        throw new UnsupportedOperationException("Not yet implemented");
+        int match = buildUriMatcher().match(uri);
+        switch (match) {
+            case TASKS:
+                return "dir";
+            case TASK_WITH_ID:
+                return "item";
+            default:
+                throw new UnsupportedOperationException();
+        }
     }
 
 }
