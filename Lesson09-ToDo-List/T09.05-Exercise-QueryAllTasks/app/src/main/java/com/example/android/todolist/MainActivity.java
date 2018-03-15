@@ -29,6 +29,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
+import com.example.android.todolist.data.TaskContract;
+
 
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -144,12 +146,20 @@ public class MainActivity extends AppCompatActivity implements
             // loadInBackground() performs asynchronous loading of data
             @Override
             public Cursor loadInBackground() {
-                // Will implement to load data
-
-                // TODO (5) Query and load all task data in the background; sort by priority
+                Cursor cursor = null;
+                try {
+                    cursor = getContentResolver().query(TaskContract.TaskEntry.CONTENT_URI,
+                            null,
+                            null,
+                            null,
+                            TaskContract.TaskEntry.COLUMN_PRIORITY);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                // COMPLETED (5) Query and load all task data in the background; sort by priority
                 // [Hint] use a try/catch block to catch any errors in loading data
 
-                return null;
+                return cursor;
             }
 
             // deliverResult sends the result of the load, a Cursor, to the registered listener
